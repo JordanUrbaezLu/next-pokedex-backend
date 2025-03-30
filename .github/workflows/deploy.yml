@@ -15,11 +15,14 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'  # Fix - Use 'temurin', 'zulu', or 'adopt'
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Build with Maven
         run: ./mvnw clean install
 
       - name: Deploy to Render
-        run: echo "You can add your Render deployment step here"
+        run: |
+          curl -X POST "https://api.render.com/v1/services/srv-cvjpiu3uibrs73e9cid0/deploys" \
+          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+          -H "Content-Type: application/json"
