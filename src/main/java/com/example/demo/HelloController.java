@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,7 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @GetMapping("/hello")
-    public String sayHello() {
-        return "Hello, Spring Boot is running!";
+    public Map<String, String> sayHello() {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hello from the backend!");
+        response.put("status", "success");
+        return response;
     }
 }
