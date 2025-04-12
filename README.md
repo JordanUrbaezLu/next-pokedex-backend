@@ -6,10 +6,8 @@ mvn clean install && java -jar target/*.jar
 Hello API
 curl http://localhost:8080/api/hello
 
-curl http://localhost:8080/api/signup \    
-  -H "Content-Type: application/json" \
-  -d '{"email":"mixstys1@ceruleasn.com", "password":"starmie123", "name":"Misty"}' \
-  -v
+curl -v -X POST http://localhost:8080/api/signup -H "Content-Type: application/json" -d '{"email":"mixstysa1@ceruleasn.com", "password":"starmie123", "name":"Misty"}'
+
 
 Docker
 docker run --platform=linux/amd64 jordanurbaezlu/next-pokedex-java-backend
@@ -25,3 +23,5 @@ docker run -p 9090:8080 \
   -e SPRING_DATASOURCE_USERNAME=postgres \
   -e SPRING_DATASOURCE_PASSWORD=IA3WQM1dO1h5kZWX \
   jordanurbaezlu/next-pokedex-java-backend:latest
+
+  postgresql://postgres:XviYflRiEqIMlDSABnQkSeuKwlWKQhPr@switchback.proxy.rlwy.net:56629/railway
