@@ -1,7 +1,7 @@
 Start Local
 
-mvn clean install
-java -jar target/*.jar
+mvn clean install && mvn spring-boot:run
+mvn clean install && java -jar target/*.jar
 
 Hello API
 curl http://localhost:8080/api/hello
