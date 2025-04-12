@@ -20,7 +20,7 @@ public class SecurityConfig {
         http
             .csrf().disable() // 🔥 This is what fixes the 403
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/signup", "/api/login", "/api/hello").permitAll()
+                .requestMatchers("/api/signup", "/api/login", "/api/hello", "/api/goodbye").permitAll()
                 .anyRequest().authenticated()
             )
             .httpBasic().disable()
