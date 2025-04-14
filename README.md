@@ -8,12 +8,5 @@ docker tag next-pokedex-java-backend jordanurbaezlu/next-pokedex-java-backend:la
 docker push jordanurbaezlu/next-pokedex-java-backend:latest
 docker run -p 8080:8080 jordanurbaezlu/next-pokedex-java-backend:latest
 
-## Hello API
-curl http://localhost:8080/api/hello
-
-## Goodbye API
-curl http://localhost:8080/api/goodbye
-
-## Signup API
-curl -v -X POST http://localhost:8080/api/signup -H "Content-Type: application/json" -d '{"email":"mixstysa1@ceruleasn.com", "password":"starmie123", "name":"Misty"}'
-
+## NEXT_POKEDEX_CONSUMER_ID
+npci_d8f71b9d4ab643f8
