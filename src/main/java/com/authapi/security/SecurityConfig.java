@@ -27,7 +27,7 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/signup", "/api/login", "/api/hello", "/api/goodbye", "/api/pokemon/related").permitAll()
+                .requestMatchers("/api/signup", "/api/login", "/api/hello", "/api/goodbye", "/api/pokemon/**").permitAll()
                 .requestMatchers("/api/account").authenticated()
                 .anyRequest().authenticated()
             )
