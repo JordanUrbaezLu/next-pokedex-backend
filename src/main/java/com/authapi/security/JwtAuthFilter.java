@@ -26,6 +26,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private UserRepository userRepository;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        // Skip JWT auth for everything under /api/pokemon/
+        String path = request.getServletPath();
+        return path.startsWith("/api/pokemon/");
+    }
+
+    @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 

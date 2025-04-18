@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ChatGPTService {
@@ -49,6 +50,59 @@ public class ChatGPTService {
                            .trim()
                            .toUpperCase();
         return reply.startsWith("Y");
+    }
+
+    /**
+     * Takes the current description, plus all prior descriptions
+     * and prior guesses, and returns a new Pokémon name.
+     */
+    public String findPokemon(
+        String description,
+        List<String> pastDescriptions,
+        List<String> previousGuesses
+    ) {
+        String basePrompt = """
+            You are a Pokémon expert. The user will give you a description of a Pokémon,
+            and you must respond with exactly ONE Pokémon name (e.g. Pikachu) and nothing else.
+
+            Do NOT repeat any Pokémon that have already been guessed:
+            %s
+
+            Here are the prior user descriptions; use them to avoid repetition:
+            %s
+
+            Now, given the new description:
+            %s
+            """.formatted(
+            previousGuesses.isEmpty() 
+              ? "None" 
+              : String.join(", ", previousGuesses),
+            pastDescriptions.isEmpty() 
+              ? "None" 
+              : pastDescriptions.stream().map(d -> "- " + d).collect(Collectors.joining("\n")),
+            description
+        );
+
+        Map<String,Object> payload = Map.of(
+            "model", "gpt-3.5-turbo",
+            "messages", List.of(
+                Map.of("role","system","content", basePrompt),
+                Map.of("role","user","content", description)
+            ),
+            "temperature", 0.7
+        );
+
+        ResponseEntity<ChatResponse> resp = rest.postForEntity(
+            "https://api.openai.com/v1/chat/completions",
+            new HttpEntity<>(payload, headers()),
+            ChatResponse.class
+        );
+
+        return resp.getBody()
+                   .choices.get(0)
+                   .message
+                   .content
+                   .trim();
     }
 
     // --- DTO for OpenAI response ---
