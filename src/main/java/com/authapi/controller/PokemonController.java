@@ -31,8 +31,11 @@ public class PokemonController {
   @Autowired private ChatGPTService chatGPT;
 
   /**
-   * POST /api/pokemon/related Body: { "question": "I am thinking of a pokemon..." } Response: {
-   * "related": true }
+   * POST /api/pokemon/related
+   *
+   * <p>Request Body: { "question": "I am thinking of a pokemon..." }
+   *
+   * <p>Response: { "related": true }
    */
   @PostMapping("/related")
   public ResponseEntity<RelatedResponse> related(@RequestBody QuestionRequest req) {
@@ -41,9 +44,12 @@ public class PokemonController {
   }
 
   /**
-   * POST /api/pokemon/find Request: { "question": "It’s small and blue", "pastDescriptions": [ "It
-   * has spikes on its back", "It breathes fire" ], "previousGuesses": [ "Charmander", "Squirtle" ]
-   * } Response: { "answer": "Sonnle" }
+   * POST /api/pokemon/find
+   *
+   * <p>Request Body: { "question": "It’s small and blue", "pastDescriptions": [ "It has spikes on
+   * its back", "It breathes fire" ], "previousGuesses": [ "Charmander", "Squirtle" ] }
+   *
+   * <p>Response: { "answer": "Sonnle" }
    */
   @PostMapping("/find")
   public ResponseEntity<AnswerResponse> find(@RequestBody FindRequest req) {
