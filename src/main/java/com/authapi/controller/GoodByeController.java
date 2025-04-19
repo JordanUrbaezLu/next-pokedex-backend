@@ -18,6 +18,6 @@ public class GoodByeController {
 
   @GetMapping("/goodbye")
   public String sayHello() {
-    return "Goodbye from the backend :(";
+    return "Goodbye from the pokedex backend!!!";
   }
 }
