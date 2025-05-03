@@ -45,7 +45,7 @@ public class SecurityConfig {
                         "/api/goodbye",
                         "/api/pokemon/**")
                     .permitAll()
-                    .requestMatchers("/api/account")
+                    .requestMatchers("/api/account", "/api/friends/**")
                     .authenticated()
                     .anyRequest()
                     .authenticated())
