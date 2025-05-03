@@ -1,18 +1,10 @@
 package com.authapi.entity;
 
 import jakarta.persistence.*;
+import java.time.Instant;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-/**
- * User
- *
- * <p>JPA entity representing a user account in the application.
- *
- * <p>• Mapped to the “users” table in the database. • Fields: – id (Long): Auto‑generated primary
- * key. – email (String): User’s unique email address. – name (String): Display name for the user. –
- * password (String): Hashed password for authentication.
- *
- * <p>Used by: • AuthController for signup/login flows. • AccountController to look up profile data.
- */
 @Entity
 @Table(name = "users")
 public class User {
@@ -20,9 +12,24 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(nullable = false, unique = true)
   private String email;
+
   private String name;
   private String password;
+
+  @CreationTimestamp
+  @Column(updatable = false)
+  private Instant createdAt;
+
+  @UpdateTimestamp private Instant updatedAt;
+
+  @Column(nullable = false)
+  private boolean isOnline = false;
+
+  private Instant lastSeen;
+
+  // === Getters and Setters ===
 
   public Long getId() {
     return id;
@@ -50,5 +57,29 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public Instant getCreatedAt() {
+    return createdAt;
+  }
+
+  public Instant getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public boolean isOnline() {
+    return isOnline;
+  }
+
+  public void setOnline(boolean online) {
+    isOnline = online;
+  }
+
+  public Instant getLastSeen() {
+    return lastSeen;
+  }
+
+  public void setLastSeen(Instant lastSeen) {
+    this.lastSeen = lastSeen;
   }
 }
